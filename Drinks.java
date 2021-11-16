@@ -39,9 +39,9 @@ private Double price;
 
     @Override
     public String toString() {
-        return  "Drinks\n" +
-                "name=" + getName() +"\n"+
-                "composition=" + getComposition() + "\n"+
-                "price=" + getPrice();
+        return  "\nCocktail\n" +
+                "name:" + getName() +"\n"+
+                "composition:" + getComposition() + "\n"+
+                "price:" + getPrice();
     }
 }
