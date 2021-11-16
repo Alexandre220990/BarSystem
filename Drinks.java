@@ -13,4 +13,35 @@ private Double price;
         this.price = price;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComposition() {
+        return composition;
+    }
+
+    public void setComposition(String composition) {
+        this.composition = composition;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return  "Drinks\n" +
+                "name=" + getName() +"\n"+
+                "composition=" + getComposition() + "\n"+
+                "price=" + getPrice();
+    }
 }
