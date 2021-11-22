@@ -1,4 +1,6 @@
-public class Bartenders {
+import java.io.Serializable;
+
+public class Bartenders implements Serializable {
     private String name;
     private String address;
     private String pps;
@@ -60,10 +62,10 @@ public class Bartenders {
     @Override
     public String toString() {
         return "Bartenders" +
-                "name:" + name + this.getName() +
-                "address:" + address + this.getAddress() +
-                "pps:" + pps + this.getPps() +
-                "Phone:" + Phone + this.getPhone() +
-                "email:" + email ;
+                "\nname:" + name + this.getName() +
+                "\naddress:" + address + this.getAddress() +
+                "\npps:" + pps + this.getPps() +
+                "\nPhone:" + Phone + this.getPhone() +
+                "\nemail:" + email + "\n\n";
     }
 }
