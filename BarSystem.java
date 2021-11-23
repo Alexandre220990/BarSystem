@@ -15,8 +15,8 @@ public class BarSystem extends JFrame implements ActionListener{
     JButton showBartender;
     JButton addCocktail;
     JButton showCocktails;
-    JMenuItem item1;
-    JMenuItem item2;
+    JMenuItem addCocktailMenu;
+    JMenuItem showCocktailsMenu;
     JTextArea output;
     ArrayList<Bartenders> barStaff = new ArrayList();
     ArrayList<Drinks> cocktails = new ArrayList();
@@ -39,14 +39,14 @@ public class BarSystem extends JFrame implements ActionListener{
         JMenuBar mainMenu = new JMenuBar();
         this.setJMenuBar(mainMenu);
 
-        this.drinkMenu = new JMenu("Menu");
+        this.drinkMenu = new JMenu("Drinks");
         mainMenu.add(drinkMenu);
-            item1 = new JMenuItem("item 1");
-            item2 = new JMenuItem("item 2");
-            this.drinkMenu.add(item1);
-            this.drinkMenu.add(item2);
-            item1.addActionListener(this);
-            item2.addActionListener(this);
+        addCocktailMenu = new JMenuItem("Add Cocktail");
+        showCocktailsMenu = new JMenuItem("Show Cocktails");
+            this.drinkMenu.add(addCocktailMenu);
+            this.drinkMenu.add(showCocktailsMenu);
+        addCocktailMenu.addActionListener(this);
+        showCocktailsMenu.addActionListener(this);
 
         this.label1 = new JLabel("welcome");
         this.label1.setFont(new Font("serif",Font.BOLD,22));
@@ -105,7 +105,6 @@ public class BarSystem extends JFrame implements ActionListener{
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
             JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
         }
         if(e.getSource() == this.showBartender){
@@ -115,7 +114,7 @@ public class BarSystem extends JFrame implements ActionListener{
             output.append(this.barStaff.toString());
             JOptionPane.showMessageDialog((Component)null, output, "Bartender Details",JOptionPane.INFORMATION_MESSAGE);
         }
-        if(e.getSource() == this.addCocktail){
+        if(e.getSource() == this.addCocktail || e.getSource()==addCocktailMenu){
             String cName = JOptionPane.showInputDialog("Enter cocktail Name");
             String compo = JOptionPane.showInputDialog("Enter cocktail composition");
             String price = JOptionPane.showInputDialog("Enter cocktail price");
@@ -126,18 +125,17 @@ public class BarSystem extends JFrame implements ActionListener{
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
             JOptionPane.showMessageDialog(null,"Cocktail added","Done",JOptionPane.INFORMATION_MESSAGE);
         }
-        if(e.getSource() == this.showCocktails){
+        if(e.getSource() == this.showCocktails || e.getSource()==showCocktailsMenu){
             output = new JTextArea();
             //String name = JOptionPane.showInputDialog("Enter Staff's Name");
             output.setText("Cocktail List:\n\n");
             output.append(this.cocktails.toString());
             JOptionPane.showMessageDialog((Component)null, output, "Cocktail List",JOptionPane.INFORMATION_MESSAGE);
         }
-        if(e.getSource() == this.item1 || e.getSource() == this.item2){
+        /*if(e.getSource() == this.addCocktailMenu || e.getSource() == this.showCocktailsMenu){
             JOptionPane.showMessageDialog(null,"menu item test","test",JOptionPane.INFORMATION_MESSAGE);
-        }
+        }*/
     }
 }
