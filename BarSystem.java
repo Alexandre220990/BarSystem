@@ -13,6 +13,8 @@ public class BarSystem extends JFrame implements ActionListener{
     JLabel label1;
     JButton addBartender;
     JButton showBartender;
+    JButton addCocktail;
+    JButton showCocktails;
     JMenuItem item1;
     JMenuItem item2;
     JTextArea output;
@@ -24,8 +26,9 @@ public class BarSystem extends JFrame implements ActionListener{
     private Sales sale;
 
     public BarSystem(){
+        Font font = new Font("serif",Font.BOLD,18);
         this.setTitle("Bar System");
-        this.setSize(60, 180);
+        this.setSize(220, 260);
 
         FlowLayout layout = new FlowLayout();
         this.setLayout(layout);
@@ -47,17 +50,24 @@ public class BarSystem extends JFrame implements ActionListener{
         this.label1 = new JLabel("welcome");
         this.label1.setFont(new Font("serif",Font.BOLD,22));
 
-        this.addBartender=new JButton("HI");
-        this.addBartender.setFont(new Font("serif",Font.BOLD,18));
-        this.showBartender=new JButton("BYE");
-        showBartender.setSize(30,60);
-        this.showBartender.setFont(new Font("serif",Font.BOLD,18));
+        this.addBartender=new JButton("Add Bartender");
+        this.addBartender.setFont(font);
+        this.showBartender=new JButton("Show Bartenders list");
+        this.showBartender.setFont(font);
+        this.addCocktail=new JButton("Add a Cocktails");
+        this.addCocktail.setFont(font);
+        this.showCocktails=new JButton("Show Cocktails list");
+        this.showCocktails.setFont(font);
         this.addBartender.addActionListener(this);
         this.showBartender.addActionListener(this);
+        this.addCocktail.addActionListener(this);
+        this.showCocktails.addActionListener(this);
 
         this.add(label1);
         this.add(addBartender);
         this.add(showBartender);
+        this.add(addCocktail);
+        this.add(showCocktails);
 
         this.setVisible(true);
 
@@ -66,12 +76,18 @@ public class BarSystem extends JFrame implements ActionListener{
         ObjectOutputStream newS = new ObjectOutputStream(new FileOutputStream("newbartender.dat"));
         newS.writeObject(this.barStaff);
         newS.close();
+        ObjectOutputStream newD = new ObjectOutputStream(new FileOutputStream("newcocktail.dat"));
+        newD.writeObject(this.cocktails);
+        newD.close();
     }
 
     public void open() throws IOException, ClassNotFoundException {
         ObjectInputStream showS = new ObjectInputStream(new FileInputStream("newbartender.dat"));
         this.barStaff = (ArrayList)showS.readObject();
         showS.close();
+        ObjectInputStream showD = new ObjectInputStream(new FileInputStream("newcocktail.dat"));
+        this.cocktails = (ArrayList)showD.readObject();
+        showD.close();
 
     }
 
@@ -97,7 +113,28 @@ public class BarSystem extends JFrame implements ActionListener{
             //String name = JOptionPane.showInputDialog("Enter Staff's Name");
             output.setText("Bartender Details:\n\n");
             output.append(this.barStaff.toString());
-            JOptionPane.showMessageDialog((Component)null, output, "Staff Details",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog((Component)null, output, "Bartender Details",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(e.getSource() == this.addCocktail){
+            String cName = JOptionPane.showInputDialog("Enter cocktail Name");
+            String compo = JOptionPane.showInputDialog("Enter cocktail composition");
+            String price = JOptionPane.showInputDialog("Enter cocktail price");
+            this.drinks = new Drinks(cName,compo,price);
+            this.cocktails.add(this.drinks);
+            try {
+                this.save();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            JOptionPane.showMessageDialog(null,"Cocktail added","Done",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(e.getSource() == this.showCocktails){
+            output = new JTextArea();
+            //String name = JOptionPane.showInputDialog("Enter Staff's Name");
+            output.setText("Cocktail List:\n\n");
+            output.append(this.cocktails.toString());
+            JOptionPane.showMessageDialog((Component)null, output, "Cocktail List",JOptionPane.INFORMATION_MESSAGE);
         }
         if(e.getSource() == this.item1 || e.getSource() == this.item2){
             JOptionPane.showMessageDialog(null,"menu item test","test",JOptionPane.INFORMATION_MESSAGE);

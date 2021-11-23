@@ -1,13 +1,15 @@
-public class Drinks {
+import java.io.Serializable;
+
+public class Drinks implements Serializable {
 private String name;
 private String composition;
-private Double price;
+private String price;
 
     public Drinks() {
-        this("no name","empty",0.0);
+        this("no name","empty", String.valueOf(0.0));
     }
 
-    public Drinks(String name, String composition, Double price) {
+    public Drinks(String name, String composition, String price) {
         this.name = name;
         this.composition = composition;
         this.price = price;
@@ -29,11 +31,11 @@ private Double price;
         this.composition = composition;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
