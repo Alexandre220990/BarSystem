@@ -29,6 +29,7 @@ public class BarSystem extends JFrame implements ActionListener{
         Font font = new Font("serif",Font.BOLD,18);
         this.setTitle("Bar System");
         this.setSize(220, 260);
+        this.setLocationRelativeTo((Component)null);
 
         FlowLayout layout = new FlowLayout();
         this.setLayout(layout);
@@ -72,7 +73,7 @@ public class BarSystem extends JFrame implements ActionListener{
         this.setVisible(true);
 
     }
-    public void save() throws IOException {
+    public void create() throws IOException {
         ObjectOutputStream newS = new ObjectOutputStream(new FileOutputStream("newbartender.dat"));
         newS.writeObject(this.barStaff);
         newS.close();
@@ -88,7 +89,6 @@ public class BarSystem extends JFrame implements ActionListener{
         ObjectInputStream showD = new ObjectInputStream(new FileInputStream("newcocktail.dat"));
         this.cocktails = (ArrayList)showD.readObject();
         showD.close();
-
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -101,7 +101,7 @@ public class BarSystem extends JFrame implements ActionListener{
             this.bartender = new Bartenders(name, address,pps,phone,email);
             this.barStaff.add(this.bartender);
             try {
-                this.save();
+                this.create();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -122,7 +122,7 @@ public class BarSystem extends JFrame implements ActionListener{
             this.drinks = new Drinks(cName,compo,price);
             this.cocktails.add(this.drinks);
             try {
-                this.save();
+                this.create();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
