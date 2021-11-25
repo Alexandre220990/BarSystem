@@ -94,18 +94,48 @@ public class BarSystem extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.addBartender){
             String name = JOptionPane.showInputDialog("Enter Staff's Name");
-            String address = JOptionPane.showInputDialog("Enter Staff's address");
-            String pps = JOptionPane.showInputDialog("Enter Staff's pps number");
-            String phone = JOptionPane.showInputDialog("Enter Staff's phone number");
-            String email = JOptionPane.showInputDialog("Enter Staff's email address");
-            this.bartender = new Bartenders(name, address,pps,phone,email);
-            this.barStaff.add(this.bartender);
-            try {
-                this.create();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            String address = "",pps,phone,email;
+            int i;
+            int digits = 0;
+            char ch = 0;
+            boolean valid=false;
+
+            while (!valid){
+                if(!name.equals("")){
+                    if(name.length()>=3 && name.length()<=50){
+                        for(i=0;i<name.length();i++)
+
+                            ch = name.charAt(i);
+                        if(!Character.isDigit(ch)){
+                                address = JOptionPane.showInputDialog("Enter Staff's address");
+                                if(!address.equals("")){
+                                    pps = JOptionPane.showInputDialog("Enter Staff's pps number");
+                                    phone = JOptionPane.showInputDialog("Enter Staff's phone number");
+                                    email = JOptionPane.showInputDialog("Enter Staff's email address");
+                                    this.bartender = new Bartenders(name, address,pps,phone,email);
+                                    valid=true;
+                                    this.barStaff.add(this.bartender);
+                                    try {
+                                        this.create();
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                    JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
+                                }else{
+                                    address = JOptionPane.showInputDialog("this address is not valid");
+                                }
+                        }else{
+                            name = JOptionPane.showInputDialog("name cant have digits");
+                        }
+
+                    }else{
+                        name = JOptionPane.showInputDialog("name is too short");
+                    }
+                }else{
+                    name = JOptionPane.showInputDialog("you need to enter a name");
+                }
             }
-            JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
+
         }
         if(e.getSource() == this.showBartender){
             output = new JTextArea();
