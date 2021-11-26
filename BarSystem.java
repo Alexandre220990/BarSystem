@@ -111,7 +111,7 @@ public class BarSystem extends JFrame implements ActionListener{
                                         pps = JOptionPane.showInputDialog("Enter Staff's pps number");
                                         if(pps.length()>=1 && pps.length()<=9){
                                             for(j = 0;j<pps.length();j++)
-                                                if (Character.isLetter(pps.charAt(j))) {
+                                                if (!Character.isDigit(pps.charAt(j))) {
                                                     break;
                                                 }
                                             if(j==pps.length()){
