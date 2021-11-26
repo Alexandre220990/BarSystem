@@ -95,45 +95,51 @@ public class BarSystem extends JFrame implements ActionListener{
         if(e.getSource() == this.addBartender){
             String name = JOptionPane.showInputDialog("Enter Staff's Name");
             String address = "",pps,phone,email;
-            int i;
-            int digits = 0;
-            char ch = 0;
+            int i,j;
             boolean valid=false;
 
             while (!valid){
                 if(!name.equals("")){
-                    if(name.length()>=3 && name.length()<=50){
-                        for(i=0;i<name.length();i++)
-
-                            ch = name.charAt(i);
-                        if(!Character.isDigit(ch)){
+                    if(name.length()>=3 && name.length()<=50) {
+                        for (i = 0; i < name.length(); i++)
+                            if (Character.isDigit(name.charAt(i))) {
+                                  break;
+                            }
+                        if(i==name.length()){
                                 address = JOptionPane.showInputDialog("Enter Staff's address");
-                                if(!address.equals("")){
-                                    pps = JOptionPane.showInputDialog("Enter Staff's pps number");
-                                    phone = JOptionPane.showInputDialog("Enter Staff's phone number");
-                                    email = JOptionPane.showInputDialog("Enter Staff's email address");
-                                    this.bartender = new Bartenders(name, address,pps,phone,email);
-                                    valid=true;
-                                    this.barStaff.add(this.bartender);
-                                    try {
-                                        this.create();
-                                    } catch (IOException ex) {
-                                        ex.printStackTrace();
-                                    }
-                                    JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
-                                }else{
-                                    address = JOptionPane.showInputDialog("this address is not valid");
-                                }
+                                    if(!address.equals("")){
+                                        pps = JOptionPane.showInputDialog("Enter Staff's pps number");
+                                        if(pps.length()>=1 && pps.length()<=9){
+                                            for(j = 0;j<pps.length();j++)
+                                                if (Character.isLetter(pps.charAt(j))) {
+                                                    break;
+                                                }
+                                            if(j==pps.length()){
+                                                phone = JOptionPane.showInputDialog("Enter Staff's phone number");
+                                                email = JOptionPane.showInputDialog("Enter Staff's email address");
+                                                this.bartender = new Bartenders(name, address,pps,phone,email);
+                                                valid=true;
+                                                this.barStaff.add(this.bartender);
+                                                try {
+                                                    this.create();
+                                                } catch (IOException ex) {
+                                                    ex.printStackTrace();
+                                                }
+                                                JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
+                                            }else {
+                                                pps = JOptionPane.showInputDialog("not a valid pps number pps number"); }
+
+                                        }else{
+                                                pps = JOptionPane.showInputDialog("pps with wrong length"); }
+                                    }else{
+                                        address = JOptionPane.showInputDialog("this address is not valid"); }
                         }else{
-                            name = JOptionPane.showInputDialog("name cant have digits");
-                        }
+                            name = JOptionPane.showInputDialog("name cant have digits"); }
 
                     }else{
-                        name = JOptionPane.showInputDialog("name is too short");
-                    }
+                        name = JOptionPane.showInputDialog("name with wrong length"); }
                 }else{
-                    name = JOptionPane.showInputDialog("you need to enter a name");
-                }
+                    name = JOptionPane.showInputDialog("you need to enter a name"); }
             }
 
         }
