@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 
 public class BarSystem extends JFrame implements ActionListener{
     JFrame frame;
@@ -91,57 +89,64 @@ public class BarSystem extends JFrame implements ActionListener{
         showD.close();
     }
 
+    public void addNewBartender() {
+        String name = JOptionPane.showInputDialog("Enter Staff's Name");
+        int i;
+        boolean valid = false;
+        while (!valid){
+            if (!name.equals("")) {
+                if (name.length() >= 3 && name.length() <= 50) {
+                    for (i = 0; i < name.length(); i++){
+                        if (Character.isDigit(name.charAt(i))) {
+                            break;
+                        }
+                    }
+                    if (i == name.length()) {
+                        String address = JOptionPane.showInputDialog("Enter Staff's address");
+                        if (!address.equals("")) {
+                            String pps = JOptionPane.showInputDialog("Enter bartender system PIN code");
+                            for (i = 0; i < pps.length(); i++){
+                                if (Character.isLetter(pps.charAt(i))) {
+                                    break;
+                                }
+                            }
+                            if (i == pps.length()) {
+                                String phone = JOptionPane.showInputDialog("Enter Staff's phone number");
+                                for (i = 0; i < phone.length(); i++){
+                                    if (Character.isLetter(phone.charAt(i))) {
+                                        break;
+                                    }
+                                }
+                                if(i==phone.length()) {
+                                    String email = JOptionPane.showInputDialog("Enter Staff's email address");
+                                    this.bartender = new Bartenders(name, address, pps, phone, email);
+                                    JOptionPane.showMessageDialog(null, "Bartender added", "Done", JOptionPane.INFORMATION_MESSAGE);
+                                    valid = true;
+                                }else {
+                                    phone = JOptionPane.showInputDialog("phone number cant contain letters");
+                                }
+                            } else {
+                                pps = JOptionPane.showInputDialog("Bartender system PIN code cant contain letters");
+                            }
+                        } else {
+                            address = JOptionPane.showInputDialog("Need to enter address");
+                        }
+                    } else {
+                        name = JOptionPane.showInputDialog("Name cant contain digits");
+                    }
+                } else {
+                    name = JOptionPane.showInputDialog("Name with wrong length");
+                }
+            } else{
+                name = JOptionPane.showInputDialog("Need to enter a name");
+            }
+        }
+        this.barStaff.add(this.bartender);
+    }
+
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.addBartender){
-            String name = JOptionPane.showInputDialog("Enter Staff's Name");
-            String address = "",pps,phone,email;
-            int i,j;
-            boolean valid=false;
-
-            while (!valid){
-                if(!name.equals("")){
-                    if(name.length()>=3 && name.length()<=50) {
-                        for (i = 0; i < name.length(); i++)
-                            if (Character.isDigit(name.charAt(i))) {
-                                  break;
-                            }
-                        if(i==name.length()){
-                                address = JOptionPane.showInputDialog("Enter Staff's address");
-                                    if(!address.equals("")){
-                                        pps = JOptionPane.showInputDialog("Enter Staff's pps number");
-                                        if(pps.length()>=1 && pps.length()<=9){
-                                            for(j = 0;j<pps.length();j++)
-                                                if (!Character.isDigit(pps.charAt(j))) {
-                                                    break;
-                                                }
-                                            if(j==pps.length()){
-                                                phone = JOptionPane.showInputDialog("Enter Staff's phone number");
-                                                email = JOptionPane.showInputDialog("Enter Staff's email address");
-                                                this.bartender = new Bartenders(name, address,pps,phone,email);
-                                                valid=true;
-                                                this.barStaff.add(this.bartender);
-                                                try {
-                                                    this.create();
-                                                } catch (IOException ex) {
-                                                    ex.printStackTrace();
-                                                }
-                                                JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
-                                            }else {
-                                                pps = JOptionPane.showInputDialog("not a valid pps number pps number"); }
-
-                                        }else{
-                                                pps = JOptionPane.showInputDialog("pps with wrong length"); }
-                                    }else{
-                                        address = JOptionPane.showInputDialog("this address is not valid"); }
-                        }else{
-                            name = JOptionPane.showInputDialog("name cant have digits"); }
-
-                    }else{
-                        name = JOptionPane.showInputDialog("name with wrong length"); }
-                }else{
-                    name = JOptionPane.showInputDialog("you need to enter a name"); }
-            }
-
+            this.addNewBartender();
         }
         if(e.getSource() == this.showBartender){
             output = new JTextArea();
@@ -170,8 +175,7 @@ public class BarSystem extends JFrame implements ActionListener{
             output.append(this.cocktails.toString());
             JOptionPane.showMessageDialog((Component)null, output, "Cocktail List",JOptionPane.INFORMATION_MESSAGE);
         }
-        /*if(e.getSource() == this.addCocktailMenu || e.getSource() == this.showCocktailsMenu){
-            JOptionPane.showMessageDialog(null,"menu item test","test",JOptionPane.INFORMATION_MESSAGE);
-        }*/
     }
 }
+/*
+            */
