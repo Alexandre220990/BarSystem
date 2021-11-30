@@ -166,9 +166,9 @@ public class BarSystem extends JFrame implements ActionListener{
                         validPps=true;
                         break;
                     }else
-                        pps = JOptionPane.showInputDialog("Name with wrong length:");
+                        pps = JOptionPane.showInputDialog("Pps number with wrong length:");
                 }else
-                    pps = JOptionPane.showInputDialog("You need to enter a name:");
+                    pps = JOptionPane.showInputDialog("You need to enter a pps number:");
             }
 
             String phone = JOptionPane.showInputDialog("Enter Staff's phone number");
