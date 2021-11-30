@@ -298,12 +298,11 @@ public class BarSystem extends JFrame implements ActionListener{
 
     public void addSales(){
         Date saleDate = new Date();
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-        Double cost = Double.valueOf(JOptionPane.showInputDialog("Enter sales of the day for\n" + date.format(saleDate) +"\n"));
+        Double cost = Double.valueOf(JOptionPane.showInputDialog("Enter sales of the day for today\n"));
 
             this.sale = new Sales(cost);
-            JOptionPane.showMessageDialog((Component)null, "Today sales " + date.format(saleDate) + " value: EUR " + cost + " added", "Sales added", 1);
+            JOptionPane.showMessageDialog((Component)null, "Today sales added, and the value is: EUR " + cost, "Sales added", INFORMATION_MESSAGE);
             this.sales.add(this.sale);
     }
 
