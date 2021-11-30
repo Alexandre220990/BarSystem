@@ -3,7 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -113,21 +115,27 @@ public class BarSystem extends JFrame implements ActionListener{
 
     }
     public void create() throws IOException {
-        ObjectOutputStream newS = new ObjectOutputStream(new FileOutputStream("newbartender.dat"));
-        newS.writeObject(this.barStaff);
-        newS.close();
+        ObjectOutputStream newB = new ObjectOutputStream(new FileOutputStream("newbartender.dat"));
+        newB.writeObject(this.barStaff);
+        newB.close();
         ObjectOutputStream newD = new ObjectOutputStream(new FileOutputStream("newcocktail.dat"));
         newD.writeObject(this.cocktails);
         newD.close();
+        ObjectOutputStream newS = new ObjectOutputStream(new FileOutputStream("newsale.dat"));
+        newS.writeObject(this.sales);
+        newS.close();
     }
 
     public void open() throws IOException, ClassNotFoundException {
-        ObjectInputStream showS = new ObjectInputStream(new FileInputStream("newbartender.dat"));
-        this.barStaff = (ArrayList)showS.readObject();
-        showS.close();
+        ObjectInputStream showB = new ObjectInputStream(new FileInputStream("newbartender.dat"));
+        this.barStaff = (ArrayList)showB.readObject();
+        showB.close();
         ObjectInputStream showD = new ObjectInputStream(new FileInputStream("newcocktail.dat"));
         this.cocktails = (ArrayList)showD.readObject();
         showD.close();
+        ObjectInputStream showS = new ObjectInputStream(new FileInputStream("newcocktail.dat"));
+        this.sales = (ArrayList)showS.readObject();
+        showS.close();
     }
 
     public void addNewBartender() {
@@ -224,7 +232,6 @@ public class BarSystem extends JFrame implements ActionListener{
     }
 
     public void deleteBartender(){
-        //String nameToDelete = JOptionPane.showInputDialog("Enter the name of bartender to delete:");
         JComboBox bartendersList = new JComboBox();
         Iterator<Bartenders> i1 = barStaff.iterator();
 
@@ -259,13 +266,13 @@ public class BarSystem extends JFrame implements ActionListener{
             }else
                 compo = JOptionPane.showInputDialog("You need to enter a cocktail composition");
         }
-            String price = JOptionPane.showInputDialog("Enter cocktail price");
+            Double price = Double.valueOf(JOptionPane.showInputDialog("Enter cocktail price"));
             boolean validPrice=false;
             while(!validPrice){
                 if(!price.equals("")){
                     validPrice=true;
                 }else
-                    price = JOptionPane.showInputDialog("You need to enter a cocktail price");
+                    price = Double.valueOf(JOptionPane.showInputDialog("You need to enter a cocktail price"));
             }
         this.drinks = new Drinks(cName,compo,price);
         JOptionPane.showMessageDialog(null,"Cocktail added","Done", INFORMATION_MESSAGE);
@@ -287,6 +294,17 @@ public class BarSystem extends JFrame implements ActionListener{
             this.cocktails.remove(delete);
             JOptionPane.showMessageDialog((Component)null, "Cocktail Removed", "Removed",INFORMATION_MESSAGE);
         }
+    }
+
+    public void addSales(){
+        Date saleDate = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        Double cost = Double.valueOf(JOptionPane.showInputDialog("Enter sales of the day for\n" + date.format(saleDate) +"\n"));
+
+            this.sale = new Sales(cost);
+            JOptionPane.showMessageDialog((Component)null, "Today sales " + date.format(saleDate) + " value: EUR " + cost + " added", "Sales added", 1);
+            this.sales.add(this.sale);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -313,6 +331,15 @@ public class BarSystem extends JFrame implements ActionListener{
         }
         if(e.getSource()==this.deleteCocktail){
             deleteCocktail();
+        }
+        if(e.getSource()==this.addSalesMenu){
+            this.addSales();
+        }
+        if(e.getSource()==this.showSalesMenu){
+            output = new JTextArea();
+            output.setText("Sales:\n\n");
+            output.append(this.sales.toString());
+            JOptionPane.showMessageDialog((Component)null, output, "Sales", INFORMATION_MESSAGE);
         }
     }
 }

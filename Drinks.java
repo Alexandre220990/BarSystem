@@ -3,13 +3,13 @@ import java.io.Serializable;
 public class Drinks implements Serializable {
 private String name;
 private String composition;
-private String price;
+private Double price;
 
     public Drinks() {
-        this("no name","empty", String.valueOf(0.0));
+        this("no name","empty", 0.0);
     }
 
-    public Drinks(String name, String composition, String price) {
+    public Drinks(String name, String composition, Double price) {
         this.name = name;
         this.composition = composition;
         this.price = price;
@@ -31,11 +31,11 @@ private String price;
         this.composition = composition;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

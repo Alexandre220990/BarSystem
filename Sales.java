@@ -1,6 +1,8 @@
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Sales {
+public class Sales implements Serializable {
     private double cost;
     private Date date;
 
@@ -23,8 +25,7 @@ public class Sales {
 
     @Override
     public String toString() {
-        return "Sales" +
-                "cost:" + cost + getCost() +
-                "date:" + date + this.date;
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return "Sales\n " + date.format(this.date) + "\nCost: " + String.format("%.2f", this.cost) + "\n";
     }
 }
