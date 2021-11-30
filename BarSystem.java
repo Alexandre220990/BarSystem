@@ -297,9 +297,23 @@ public class BarSystem extends JFrame implements ActionListener{
     public void addSales(){
         Double cost = Double.valueOf(JOptionPane.showInputDialog("Enter sales of the day for today\n"));
 
-            this.sale = new Sales(cost);
-            JOptionPane.showMessageDialog((Component)null, "Today sales added, and the value is: EUR " + cost, "Sales added", INFORMATION_MESSAGE);
-            this.sales.add(this.sale);
+        String name=JOptionPane.showInputDialog("Enter seller name:");
+
+        boolean valid=false;
+
+        while(!valid){
+            for(int i=0;i<barStaff.size();i++)
+                if (name.equals(barStaff.get(i).getName())) {
+                    this.sale = new Sales(cost);
+                    valid = true;
+                }
+                else
+                    name=JOptionPane.showInputDialog("This bartender does not exist\n"
+                                                    +"To add sales, the seller need to exist");
+        }
+
+        JOptionPane.showMessageDialog((Component)null, "Today sales added, and the value is: EUR " + cost, "Sales added", INFORMATION_MESSAGE);
+        this.sales.add(this.sale);
     }
 
     public void actionPerformed(ActionEvent e) {
