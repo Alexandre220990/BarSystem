@@ -9,15 +9,18 @@ public class BarSystem extends JFrame implements ActionListener{
     JFrame frame;
     JMenu drinkMenu;
     JMenu bartendersMenu;
+    JMenu salesMenu;
     JLabel label1;
     JButton addBartender;
-    JButton showBartender;
+    //JButton showBartender;
     JButton addCocktail;
-    JButton showCocktails;
+    //JButton showCocktails;
     JMenuItem addCocktailMenu;
     JMenuItem showCocktailsMenu;
     JMenuItem addBartenderMenu;
     JMenuItem showBartendersMenu;
+    JMenuItem addSalesMenu;
+    JMenuItem showSalesMenu;
     JTextArea output;
     ArrayList<Bartenders> barStaff = new ArrayList();
     ArrayList<Drinks> cocktails = new ArrayList();
@@ -58,27 +61,36 @@ public class BarSystem extends JFrame implements ActionListener{
         addBartenderMenu.addActionListener(this);
         showBartendersMenu.addActionListener(this);
 
+        this.salesMenu = new JMenu("Sales");
+        mainMenu.add(salesMenu);
+        addSalesMenu = new JMenuItem("Add Sales");
+        showSalesMenu = new JMenuItem("Show Sales");
+            salesMenu.add(addSalesMenu);
+            salesMenu.add(showSalesMenu);
+        addSalesMenu.addActionListener(this);
+        showSalesMenu.addActionListener(this);
+
         this.label1 = new JLabel("welcome");
         this.label1.setFont(new Font("serif",Font.BOLD,22));
 
         this.addBartender=new JButton("Add Bartender");
         this.addBartender.setFont(font);
-        this.showBartender=new JButton("Show Bartenders list");
-        this.showBartender.setFont(font);
+        //this.showBartender=new JButton("Show Bartenders list");
+        //this.showBartender.setFont(font);
         this.addCocktail=new JButton("Add a Cocktails");
         this.addCocktail.setFont(font);
-        this.showCocktails=new JButton("Show Cocktails list");
-        this.showCocktails.setFont(font);
+        //this.showCocktails=new JButton("Show Cocktails list");
+        //this.showCocktails.setFont(font);
         this.addBartender.addActionListener(this);
-        this.showBartender.addActionListener(this);
+        //this.showBartender.addActionListener(this);
         this.addCocktail.addActionListener(this);
-        this.showCocktails.addActionListener(this);
+        //this.showCocktails.addActionListener(this);
 
         this.add(label1);
         this.add(addBartender);
-        this.add(showBartender);
+        //this.add(showBartender);
         this.add(addCocktail);
-        this.add(showCocktails);
+        //this.add(showCocktails);
 
         this.setVisible(true);
 
@@ -225,7 +237,7 @@ public class BarSystem extends JFrame implements ActionListener{
         if(e.getSource() == this.addBartender || e.getSource()==addBartenderMenu){
             this.addNewBartender();
         }
-        if(e.getSource() == this.showBartender || e.getSource()==showBartendersMenu){
+        if(/*e.getSource() == this.showBartender ||*/ e.getSource()==showBartendersMenu){
             output = new JTextArea();
             //String name = JOptionPane.showInputDialog("Enter Staff's Name");
             output.setText("Bartender Details:\n\n");
@@ -235,7 +247,7 @@ public class BarSystem extends JFrame implements ActionListener{
         if(e.getSource() == this.addCocktail || e.getSource()==addCocktailMenu){
             this.addNewCocktail();
         }
-        if(e.getSource() == this.showCocktails || e.getSource()==showCocktailsMenu){
+        if(/*e.getSource() == this.showCocktails ||*/ e.getSource()==showCocktailsMenu){
             output = new JTextArea();
             //String name = JOptionPane.showInputDialog("Enter Staff's Name");
             output.setText("Cocktail List:\n\n");
