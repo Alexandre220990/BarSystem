@@ -62,10 +62,10 @@ public class Bartenders implements Serializable {
     @Override
     public String toString() {
         return "Bartenders" +
-                "\nname:" + name + this.getName() +
-                "\naddress:" + address + this.getAddress() +
-                "\npps:" + pps + this.getPps() +
-                "\nPhone:" + Phone + this.getPhone() +
-                "\nemail:" + email + "\n\n";
+                "\nname:" + this.getName() +
+                "\naddress:" + this.getAddress() +
+                "\npps:" + this.getPps() +
+                "\nPhone:" + this.getPhone() +
+                "\nemail:" + this.getEmail() + "\n";
     }
 }
