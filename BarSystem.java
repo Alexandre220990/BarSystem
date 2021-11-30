@@ -240,7 +240,7 @@ public class BarSystem extends JFrame implements ActionListener{
             JOptionPane.showMessageDialog((Component)null, "Bartender Removed", "Removed",INFORMATION_MESSAGE);
         }
     }
-    //
+
     public void addNewCocktail(){
         String cName = JOptionPane.showInputDialog("Enter cocktail Name");
         boolean validCname=false;
