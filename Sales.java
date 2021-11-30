@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Sales implements Serializable {
+    private Bartenders bartender;
     private double cost;
     private Date date;
 

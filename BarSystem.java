@@ -3,9 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -297,7 +295,6 @@ public class BarSystem extends JFrame implements ActionListener{
     }
 
     public void addSales(){
-
         Double cost = Double.valueOf(JOptionPane.showInputDialog("Enter sales of the day for today\n"));
 
             this.sale = new Sales(cost);
