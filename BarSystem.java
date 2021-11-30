@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 
 public class BarSystem extends JFrame implements ActionListener{
@@ -21,6 +24,8 @@ public class BarSystem extends JFrame implements ActionListener{
     JMenuItem showCocktailsMenu;
     JMenuItem addBartenderMenu;
     JMenuItem showBartendersMenu;
+    JMenuItem deleteBartender;
+    JMenuItem deleteCocktail;
     JMenuItem addSalesMenu;
     JMenuItem showSalesMenu;
     JTextArea output;
@@ -49,19 +54,25 @@ public class BarSystem extends JFrame implements ActionListener{
         mainMenu.add(drinkMenu);
         addCocktailMenu = new JMenuItem("Add Cocktail");
         showCocktailsMenu = new JMenuItem("Show Cocktails");
+        deleteCocktail = new JMenuItem("Delete Cocktail");
             drinkMenu.add(addCocktailMenu);
             drinkMenu.add(showCocktailsMenu);
+            drinkMenu.add(deleteCocktail);
         addCocktailMenu.addActionListener(this);
         showCocktailsMenu.addActionListener(this);
+        deleteCocktail.addActionListener(this);
 
         this.bartendersMenu = new JMenu("Bartenders");
         mainMenu.add(bartendersMenu);
         addBartenderMenu = new JMenuItem("Add Bartender");
         showBartendersMenu = new JMenuItem("Show Bartenders");
+        deleteBartender = new JMenuItem("Delete Bartenders");
             bartendersMenu.add(addBartenderMenu);
             bartendersMenu.add(showBartendersMenu);
+            bartendersMenu.add(deleteBartender);
         addBartenderMenu.addActionListener(this);
         showBartendersMenu.addActionListener(this);
+        deleteBartender.addActionListener(this);
 
         this.salesMenu = new JMenu("Sales");
         mainMenu.add(salesMenu);
@@ -204,12 +215,30 @@ public class BarSystem extends JFrame implements ActionListener{
                     email = JOptionPane.showInputDialog("You need to enter an email:");
             }
             this.bartender = new Bartenders(name, address,pps,phone,email);
-            JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Bartender added","Done", INFORMATION_MESSAGE);
             this.barStaff.add(this.bartender);
         }else
-            JOptionPane.showMessageDialog(null,"No added bartenders","Exit",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"No added bartenders","Exit", INFORMATION_MESSAGE);
 
 
+    }
+
+    public void deleteBartender(){
+        //String nameToDelete = JOptionPane.showInputDialog("Enter the name of bartender to delete:");
+        JComboBox bartendersList = new JComboBox();
+        Iterator<Bartenders> i1 = barStaff.iterator();
+
+        if(!i1.hasNext()) {
+            JOptionPane.showMessageDialog((Component)null,"No bartenders to remove", "Remove Staff",INFORMATION_MESSAGE);
+        }
+        else {
+            Bartenders nameToDelete = (Bartenders) i1.next();
+            bartendersList.addItem(nameToDelete.getName());
+            JOptionPane.showMessageDialog((Component)null,"Select bartender to remove"+bartendersList, "Remove Bartender",INFORMATION_MESSAGE);
+            int delete = bartendersList.getSelectedIndex();
+            this.barStaff.remove(delete);
+            JOptionPane.showMessageDialog((Component)null, "Bartender Removed", "Removed",INFORMATION_MESSAGE);
+        }
     }
 
     public void addNewCocktail(){
@@ -239,30 +268,51 @@ public class BarSystem extends JFrame implements ActionListener{
                     price = JOptionPane.showInputDialog("You need to enter a cocktail price");
             }
         this.drinks = new Drinks(cName,compo,price);
-        JOptionPane.showMessageDialog(null,"Cocktail added","Done",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null,"Cocktail added","Done", INFORMATION_MESSAGE);
         this.cocktails.add(this.drinks);
     }
 
+    public void deleteCocktail(){
+        JComboBox cocktailList = new JComboBox();
+        Iterator<Drinks> i1 = cocktails.iterator();
+
+        if(!i1.hasNext()) {
+            JOptionPane.showMessageDialog((Component)null,"No cocktails to remove", "Remove Staff",INFORMATION_MESSAGE);
+        }
+        else {
+            Drinks cocktailToDelete = (Drinks) i1.next();
+            cocktailList.addItem(cocktailToDelete.getName());
+            JOptionPane.showMessageDialog((Component)null,"Select cocktail to remove"+cocktailList, "Remove Cocktail",INFORMATION_MESSAGE);
+            int delete = cocktailList.getSelectedIndex();
+            this.cocktails.remove(delete);
+            JOptionPane.showMessageDialog((Component)null, "Cocktail Removed", "Removed",INFORMATION_MESSAGE);
+        }
+    }
+
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.addBartender || e.getSource()==addBartenderMenu){
+        if(e.getSource() == this.addBartender || e.getSource()==this.addBartenderMenu){
             this.addNewBartender();
         }
-        if(/*e.getSource() == this.showBartender ||*/ e.getSource()==showBartendersMenu){
+        if(/*e.getSource() == this.showBartender ||*/ e.getSource()==this.showBartendersMenu){
             output = new JTextArea();
-            //String name = JOptionPane.showInputDialog("Enter Staff's Name");
             output.setText("Bartender Details:\n\n");
             output.append(this.barStaff.toString());
-            JOptionPane.showMessageDialog((Component)null, output, "Bartender Details",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog((Component)null, output, "Bartender Details", INFORMATION_MESSAGE);
         }
-        if(e.getSource() == this.addCocktail || e.getSource()==addCocktailMenu){
+        if(e.getSource() == this.deleteBartender){
+            this.deleteBartender();
+        }
+        if(e.getSource() == this.addCocktail || e.getSource()==this.addCocktailMenu){
             this.addNewCocktail();
         }
         if(/*e.getSource() == this.showCocktails ||*/ e.getSource()==showCocktailsMenu){
             output = new JTextArea();
-            //String name = JOptionPane.showInputDialog("Enter Staff's Name");
             output.setText("Cocktail List:\n\n");
             output.append(this.cocktails.toString());
-            JOptionPane.showMessageDialog((Component)null, output, "Cocktail List",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog((Component)null, output, "Cocktail List", INFORMATION_MESSAGE);
+        }
+        if(e.getSource()==this.deleteCocktail){
+            deleteCocktail();
         }
     }
 }
