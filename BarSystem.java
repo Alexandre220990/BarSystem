@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 
+
 public class BarSystem extends JFrame implements ActionListener{
     JFrame frame;
     JMenu drinkMenu;
     JMenu bartendersMenu;
     JMenu salesMenu;
     JLabel label1;
+    JLabel imgLabel;
     JButton addBartender;
     //JButton showBartender;
     JButton addCocktail;
@@ -32,7 +34,7 @@ public class BarSystem extends JFrame implements ActionListener{
     public BarSystem(){
         Font font = new Font("serif",Font.BOLD,18);
         this.setTitle("Bar System");
-        this.setSize(220, 260);
+        this.setSize(220, 405);
         this.setLocationRelativeTo((Component)null);
 
         FlowLayout layout = new FlowLayout();
@@ -70,6 +72,9 @@ public class BarSystem extends JFrame implements ActionListener{
         addSalesMenu.addActionListener(this);
         showSalesMenu.addActionListener(this);
 
+        this.imgLabel = new JLabel();
+        this.imgLabel.setIcon(new ImageIcon(this.getClass().getResource("cocktail.png")));
+
         this.label1 = new JLabel("welcome");
         this.label1.setFont(new Font("serif",Font.BOLD,22));
 
@@ -87,6 +92,7 @@ public class BarSystem extends JFrame implements ActionListener{
         //this.showCocktails.addActionListener(this);
 
         this.add(label1);
+        this.add(imgLabel);
         this.add(addBartender);
         //this.add(showBartender);
         this.add(addCocktail);
@@ -117,89 +123,93 @@ public class BarSystem extends JFrame implements ActionListener{
         String name = JOptionPane.showInputDialog("Enter Staff's Name");
         int i;
         boolean validName = false;
-
-        while (!validName){
-            if(!name.equals("")){
-                if(name.length() >= 2 && name.length() <= 50){
-                    for (i = 0; i < name.length(); i++){
-                        if (Character.isDigit(name.charAt(i))) {
-                            break;
+        if (name!=null){
+            while (!validName){
+                if(!name.equals("")){
+                    if(name.length() >= 2 && name.length() <= 50){
+                        for (i = 0; i < name.length(); i++){
+                            if (Character.isDigit(name.charAt(i))) {
+                                break;
+                            }
                         }
-                    }
-                    if(i == name.length()){
-                        validName=true;
+                        if(i == name.length()){
+                            validName=true;
+                            break;
+                        }else
+                            name = JOptionPane.showInputDialog("The name cant contain digits:");
+                    }else
+                        name = JOptionPane.showInputDialog("Name with wrong length:");
+                }else
+                    name = JOptionPane.showInputDialog("You need to enter a name:");
+            }
+
+            String address = JOptionPane.showInputDialog("Enter Staff's address");
+            boolean validAddress=false;
+
+            while (!validAddress){
+                if(!address.equals("")){
+                    if(address.length() >= 4 && address.length() <= 80){
+                        validAddress=true;
                         break;
                     }else
-                        name = JOptionPane.showInputDialog("The name cant contain digits:");
+                        address = JOptionPane.showInputDialog("Address with wrong length:");
                 }else
-                    name = JOptionPane.showInputDialog("Name with wrong length:");
-            }else
-                name = JOptionPane.showInputDialog("You need to enter a name:");
-        }
+                    address= JOptionPane.showInputDialog("You need to enter an address:");
+            }
 
-        String address = JOptionPane.showInputDialog("Enter Staff's address");
-        boolean validAddress=false;
+            String pps = JOptionPane.showInputDialog("Enter Staff's pps number");
+            boolean validPps=false;
 
-        while (!validAddress){
-            if(!address.equals("")){
-                if(address.length() >= 4 && address.length() <= 80){
-                    validAddress=true;
-                    break;
-                }else
-                    address = JOptionPane.showInputDialog("Address with wrong length:");
-            }else
-                address= JOptionPane.showInputDialog("You need to enter an address:");
-        }
-
-        String pps = JOptionPane.showInputDialog("Enter Staff's pps number");
-        boolean validPps=false;
-
-        while (!validPps){
-            if(!pps.equals("")){
-                if(pps.length() == 9){
-                    validPps=true;
-                    break;
-                }else
-                    pps = JOptionPane.showInputDialog("Name with wrong length:");
-            }else
-                pps = JOptionPane.showInputDialog("You need to enter a name:");
-        }
-
-        String phone = JOptionPane.showInputDialog("Enter Staff's phone number");
-        boolean validPhone = false;
-
-        while (!validPhone){
-            if(!phone.equals("")){
-                if(phone.length() >= 2 && phone.length() <= 50){
-                    for (i = 0; i < phone.length(); i++){
-                        if (Character.isLetter(phone.charAt(i))) {
-                            break;
-                        }
-                    }
-                    if(i == phone.length()){
-                        validPhone=true;
+            while (!validPps){
+                if(!pps.equals("")){
+                    if(pps.length() == 9){
+                        validPps=true;
                         break;
                     }else
-                        phone = JOptionPane.showInputDialog("The phone number cant contain letters:");
+                        pps = JOptionPane.showInputDialog("Name with wrong length:");
                 }else
-                    phone = JOptionPane.showInputDialog("Phone number with wrong length:");
-            }else
-                phone = JOptionPane.showInputDialog("You need to enter a Phone number:");
-        }
+                    pps = JOptionPane.showInputDialog("You need to enter a name:");
+            }
 
-        String email = JOptionPane.showInputDialog("Enter Staff's email address");
-        boolean validEmail=false;
+            String phone = JOptionPane.showInputDialog("Enter Staff's phone number");
+            boolean validPhone = false;
 
-        while (!validEmail){
-            if(!email.equals("")){
-                validEmail=true;
-                break;
-            }else
-                email = JOptionPane.showInputDialog("You need to enter an email:");
-        }
-        this.bartender = new Bartenders(name, address,pps,phone,email);
-        JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
-        this.barStaff.add(this.bartender);
+            while (!validPhone){
+                if(!phone.equals("")){
+                    if(phone.length() >= 2 && phone.length() <= 50){
+                        for (i = 0; i < phone.length(); i++){
+                            if (Character.isLetter(phone.charAt(i))) {
+                                break;
+                            }
+                        }
+                        if(i == phone.length()){
+                            validPhone=true;
+                            break;
+                        }else
+                            phone = JOptionPane.showInputDialog("The phone number cant contain letters:");
+                    }else
+                        phone = JOptionPane.showInputDialog("Phone number with wrong length:");
+                }else
+                    phone = JOptionPane.showInputDialog("You need to enter a Phone number:");
+            }
+
+            String email = JOptionPane.showInputDialog("Enter Staff's email address");
+            boolean validEmail=false;
+
+            while (!validEmail){
+                if(!email.equals("")){
+                    validEmail=true;
+                    break;
+                }else
+                    email = JOptionPane.showInputDialog("You need to enter an email:");
+            }
+            this.bartender = new Bartenders(name, address,pps,phone,email);
+            JOptionPane.showMessageDialog(null,"Bartender added","Done",JOptionPane.INFORMATION_MESSAGE);
+            this.barStaff.add(this.bartender);
+        }else
+            JOptionPane.showMessageDialog(null,"No added bartenders","Exit",JOptionPane.INFORMATION_MESSAGE);
+
+
     }
 
     public void addNewCocktail(){
@@ -256,51 +266,3 @@ public class BarSystem extends JFrame implements ActionListener{
         }
     }
 }
-/*
-if (!name.equals("")) {
-                if (name.length() >= 3 && name.length() <= 50) {
-                    for (i = 0; i < name.length(); i++){
-                        if (Character.isDigit(name.charAt(i))) {
-                            break;
-                        }
-                    }
-                    if (i == name.length()) {
-                        String address = JOptionPane.showInputDialog("Enter Staff's address");
-                        if (!address.equals("")) {
-                            String pps = JOptionPane.showInputDialog("Enter bartender system PIN code");
-                            for (i = 0; i < pps.length(); i++){
-                                if (Character.isLetter(pps.charAt(i))) {
-                                    break;
-                                }
-                            }
-                            if (i == pps.length()) {
-                                String phone = JOptionPane.showInputDialog("Enter Staff's phone number");
-                                for (i = 0; i < phone.length(); i++){
-                                    if (Character.isLetter(phone.charAt(i))) {
-                                        break;
-                                    }
-                                }
-                                if(i==phone.length()) {
-                                    String email = JOptionPane.showInputDialog("Enter Staff's email address");
-                                    this.bartender = new Bartenders(name, address, pps, phone, email);
-                                    JOptionPane.showMessageDialog(null, "Bartender added", "Done", JOptionPane.INFORMATION_MESSAGE);
-                                    valid = true;
-                                }else {
-                                    phone = JOptionPane.showInputDialog("phone number cant contain letters");
-                                }
-                            } else {
-                                pps = JOptionPane.showInputDialog("Bartender system PIN code cant contain letters");
-                            }
-                        } else {
-                            address = JOptionPane.showInputDialog("Need to enter address");
-                        }
-                    } else {
-                        name = JOptionPane.showInputDialog("Name cant contain digits");
-                    }
-                } else {
-                    name = JOptionPane.showInputDialog("Name with wrong length");
-                }
-            } else{
-                name = JOptionPane.showInputDialog("Need to enter a name");
-            }
-            */
