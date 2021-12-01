@@ -131,7 +131,7 @@ public class BarSystem extends JFrame implements ActionListener{
         ObjectInputStream showD = new ObjectInputStream(new FileInputStream("newcocktail.dat"));
         this.cocktails = (ArrayList)showD.readObject();
         showD.close();
-        ObjectInputStream showS = new ObjectInputStream(new FileInputStream("newcocktail.dat"));
+        ObjectInputStream showS = new ObjectInputStream(new FileInputStream("newsale.dat"));
         this.sales = (ArrayList)showS.readObject();
         showS.close();
     }
