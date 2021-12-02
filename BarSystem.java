@@ -1,4 +1,8 @@
-
+//Alexandre Francisco
+//T00219415
+/*This program allows you to add bartenders, cocktails and sales into a bar system,display them and delete
+them.
+ */
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,9 +23,7 @@ public class BarSystem extends JFrame implements ActionListener{
     JLabel label1;
     JLabel imgLabel;
     JButton addBartender;
-    //JButton showBartender;
     JButton addCocktail;
-    //JButton showCocktails;
     JMenuItem addCocktailMenu;
     JMenuItem showCocktailsMenu;
     JMenuItem addBartenderMenu;
@@ -93,23 +95,15 @@ public class BarSystem extends JFrame implements ActionListener{
 
         this.addBartender=new JButton("Add Bartender");
         this.addBartender.setFont(font);
-        //this.showBartender=new JButton("Show Bartenders list");
-        //this.showBartender.setFont(font);
         this.addCocktail=new JButton("Add a Cocktails");
         this.addCocktail.setFont(font);
-        //this.showCocktails=new JButton("Show Cocktails list");
-        //this.showCocktails.setFont(font);
         this.addBartender.addActionListener(this);
-        //this.showBartender.addActionListener(this);
         this.addCocktail.addActionListener(this);
-        //this.showCocktails.addActionListener(this);
 
         this.add(label1);
         this.add(imgLabel);
         this.add(addBartender);
-        //this.add(showBartender);
         this.add(addCocktail);
-        //this.add(showCocktails);
 
         this.setVisible(true);
 
@@ -233,13 +227,13 @@ public class BarSystem extends JFrame implements ActionListener{
 
     public void deleteBartender(){
         JComboBox bartendersList = new JComboBox();
-        Iterator<Bartenders> i1 = barStaff.iterator();
+        Iterator<Bartenders> iterator = barStaff.iterator();
 
-        if(!i1.hasNext()) {
+        if(!iterator.hasNext()) {
             JOptionPane.showMessageDialog((Component)null,"No bartenders to remove", "Remove Staff",INFORMATION_MESSAGE);
         }
         else {
-            Bartenders nameToDelete = (Bartenders) i1.next();
+            Bartenders nameToDelete = (Bartenders) iterator.next();
             bartendersList.addItem(nameToDelete.getName());
             JOptionPane.showMessageDialog((Component)null,bartendersList, "Bartender to remove",INFORMATION_MESSAGE);
             int delete = bartendersList.getSelectedIndex();
@@ -281,13 +275,13 @@ public class BarSystem extends JFrame implements ActionListener{
 
     public void deleteCocktail(){
         JComboBox cocktailList = new JComboBox();
-        Iterator<Drinks> i1 = cocktails.iterator();
+        Iterator<Drinks> iterator = cocktails.iterator();
 
-        if(!i1.hasNext()) {
+        if(!iterator.hasNext()) {
             JOptionPane.showMessageDialog((Component)null,"No cocktails to remove", "Remove Staff",INFORMATION_MESSAGE);
         }
         else {
-            Drinks cocktailToDelete = (Drinks) i1.next();
+            Drinks cocktailToDelete = (Drinks) iterator.next();
             cocktailList.addItem(cocktailToDelete.getName());
             JOptionPane.showMessageDialog((Component)null,cocktailList, "Cocktail to remove",INFORMATION_MESSAGE);
             int delete = cocktailList.getSelectedIndex();
