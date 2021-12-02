@@ -1,8 +1,9 @@
+
 //Alexandre Francisco
 //T00219415
+
 /*This program allows you to add bartenders, cocktails and sales into a bar system,display them and delete
-them.
- */
+them.*/
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 
 public class BarSystem extends JFrame implements ActionListener{
+
     JFrame frame;
     JMenu drinkMenu;
     JMenu bartendersMenu;
@@ -41,9 +43,11 @@ public class BarSystem extends JFrame implements ActionListener{
     private Sales sale;
 
     public BarSystem(){
+
+        //GUI section
         Font font = new Font("serif",Font.BOLD,18);
         this.setTitle("Bar System");
-        this.setSize(220, 405);
+        this.setSize(250, 405);
         this.setLocationRelativeTo((Component)null);
 
         FlowLayout layout = new FlowLayout();
@@ -90,12 +94,12 @@ public class BarSystem extends JFrame implements ActionListener{
         this.imgLabel = new JLabel();
         this.imgLabel.setIcon(new ImageIcon(this.getClass().getResource("cocktail.png")));
 
-        this.label1 = new JLabel("welcome");
+        this.label1 = new JLabel("Welcome to the System");
         this.label1.setFont(new Font("serif",Font.BOLD,22));
 
         this.addBartender=new JButton("Add Bartender");
         this.addBartender.setFont(font);
-        this.addCocktail=new JButton("Add a Cocktails");
+        this.addCocktail=new JButton("Add Cocktails");
         this.addCocktail.setFont(font);
         this.addBartender.addActionListener(this);
         this.addCocktail.addActionListener(this);
@@ -108,34 +112,53 @@ public class BarSystem extends JFrame implements ActionListener{
         this.setVisible(true);
 
     }
+
+    /*
+    In creating and opening the file sections, I used the restaurant system (in oneDrive folder )
+    as an example and a little help from IntelliJ (intelliJ added the exception).
+    */
+
+    //Creation of a file to save the input from the user in relation to bartenders,cocktails or sales
     public void create() throws IOException {
+
         ObjectOutputStream newB = new ObjectOutputStream(new FileOutputStream("newbartender.dat"));
         newB.writeObject(this.barStaff);
         newB.close();
+
         ObjectOutputStream newD = new ObjectOutputStream(new FileOutputStream("newcocktail.dat"));
         newD.writeObject(this.cocktails);
         newD.close();
+
         ObjectOutputStream newS = new ObjectOutputStream(new FileOutputStream("newsale.dat"));
         newS.writeObject(this.sales);
         newS.close();
+
     }
 
+    //Opening the created files
     public void open() throws IOException, ClassNotFoundException {
+
         ObjectInputStream showB = new ObjectInputStream(new FileInputStream("newbartender.dat"));
         this.barStaff = (ArrayList)showB.readObject();
         showB.close();
+
         ObjectInputStream showD = new ObjectInputStream(new FileInputStream("newcocktail.dat"));
         this.cocktails = (ArrayList)showD.readObject();
         showD.close();
+
         ObjectInputStream showS = new ObjectInputStream(new FileInputStream("newsale.dat"));
         this.sales = (ArrayList)showS.readObject();
         showS.close();
+
     }
 
+    //Validation responsible for creating bartenders
     public void addNewBartender() {
+
         String name = JOptionPane.showInputDialog("Enter Staff's Name");
         int i;
         boolean validName = false;
+
         if (name!=null){
             while (!validName){
                 if(!name.equals("")){
@@ -221,10 +244,14 @@ public class BarSystem extends JFrame implements ActionListener{
             this.barStaff.add(this.bartender);
         }else
             JOptionPane.showMessageDialog(null,"No added bartenders","Exit", INFORMATION_MESSAGE);
-
-
     }
 
+    /*
+    In the sections deleteBartenders and deleteCocktails, I used the bar system (in OneDrive folder) as an example,
+    and added my own twist to it
+    */
+
+    //Section responsible for deleting the created bartenders
     public void deleteBartender(){
         JComboBox bartendersList = new JComboBox();
         Iterator<Bartenders> iterator = barStaff.iterator();
@@ -242,6 +269,7 @@ public class BarSystem extends JFrame implements ActionListener{
         }
     }
 
+    //Validation responsible for creating cocktails
     public void addNewCocktail(){
         String cName = JOptionPane.showInputDialog("Enter cocktail Name");
         boolean validCname=false;
@@ -273,6 +301,7 @@ public class BarSystem extends JFrame implements ActionListener{
         this.cocktails.add(this.drinks);
     }
 
+    //Section responsible for deleting the created cocktails
     public void deleteCocktail(){
         JComboBox cocktailList = new JComboBox();
         Iterator<Drinks> iterator = cocktails.iterator();
@@ -290,6 +319,7 @@ public class BarSystem extends JFrame implements ActionListener{
         }
     }
 
+    //Section responsible for adding sales
     public void addSales(){
         Double cost = Double.valueOf(JOptionPane.showInputDialog("Enter sales of the day for today\n"));
 
@@ -298,14 +328,13 @@ public class BarSystem extends JFrame implements ActionListener{
         boolean valid=false;
 
         while(!valid){
-            for(int i=0;i<barStaff.size();i++)
-                if (name.equals(barStaff.get(i).getName())) {
+            for (Bartenders bartenders : barStaff)
+                if (name.equals(bartenders.getName())) {
                     this.sale = new Sales(cost);
                     valid = true;
-                }
-                else
-                    name=JOptionPane.showInputDialog("This bartender does not exist\n"
-                                                    +"To add sales, the seller need to exist");
+                } else
+                    name = JOptionPane.showInputDialog("This bartender does not exist\n"
+                            + "To add sales, the seller need to exist");
         }
 
         JOptionPane.showMessageDialog((Component)null, "Today sales added, and the value is: EUR " + cost, "Sales added", INFORMATION_MESSAGE);
@@ -313,38 +342,64 @@ public class BarSystem extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
+
         if(e.getSource() == this.addBartender || e.getSource()==this.addBartenderMenu){
+
             this.addNewBartender();
+
         }
-        if(/*e.getSource() == this.showBartender ||*/ e.getSource()==this.showBartendersMenu){
+
+        if(e.getSource()==this.showBartendersMenu){
+
             output = new JTextArea();
             output.setText("Bartender Details:\n\n");
             output.append(this.barStaff.toString());
             JOptionPane.showMessageDialog((Component)null, output, "Bartender Details", INFORMATION_MESSAGE);
+
         }
+
         if(e.getSource() == this.deleteBartender){
+
             this.deleteBartender();
+
         }
+
         if(e.getSource() == this.addCocktail || e.getSource()==this.addCocktailMenu){
+
             this.addNewCocktail();
+
         }
-        if(/*e.getSource() == this.showCocktails ||*/ e.getSource()==showCocktailsMenu){
+
+        if(e.getSource()==showCocktailsMenu){
+
             output = new JTextArea();
             output.setText("Cocktail List:\n\n");
             output.append(this.cocktails.toString());
             JOptionPane.showMessageDialog((Component)null, output, "Cocktail List", INFORMATION_MESSAGE);
+
         }
+
         if(e.getSource()==this.deleteCocktail){
+
             deleteCocktail();
+
         }
+
         if(e.getSource()==this.addSalesMenu){
+
             this.addSales();
+
         }
+
         if(e.getSource()==this.showSalesMenu){
+
             output = new JTextArea();
             output.setText("Sales:\n\n");
             output.append(this.sales.toString());
             JOptionPane.showMessageDialog((Component)null, output, "Sales", INFORMATION_MESSAGE);
+
         }
+
     }
+
 }
