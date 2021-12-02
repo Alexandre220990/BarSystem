@@ -234,14 +234,18 @@ public class BarSystem extends JFrame implements ActionListener{
 
             while (!validEmail){
                 if(!email.equals("")){
+
                     validEmail=true;
                     break;
+
                 }else
                     email = JOptionPane.showInputDialog("You need to enter an email:");
             }
+
             this.bartender = new Bartenders(name, address,pps,phone,email);
             JOptionPane.showMessageDialog(null,"Bartender added","Done", INFORMATION_MESSAGE);
             this.barStaff.add(this.bartender);
+
         }else
             JOptionPane.showMessageDialog(null,"No added bartenders","Exit", INFORMATION_MESSAGE);
     }
@@ -253,70 +257,97 @@ public class BarSystem extends JFrame implements ActionListener{
 
     //Section responsible for deleting the created bartenders
     public void deleteBartender(){
+
         JComboBox bartendersList = new JComboBox();
         Iterator<Bartenders> iterator = barStaff.iterator();
 
         if(!iterator.hasNext()) {
+
             JOptionPane.showMessageDialog((Component)null,"No bartenders to remove", "Remove Staff",INFORMATION_MESSAGE);
+
         }
+
         else {
+
             Bartenders nameToDelete = (Bartenders) iterator.next();
             bartendersList.addItem(nameToDelete.getName());
             JOptionPane.showMessageDialog((Component)null,bartendersList, "Bartender to remove",INFORMATION_MESSAGE);
             int delete = bartendersList.getSelectedIndex();
             this.barStaff.remove(delete);
             JOptionPane.showMessageDialog((Component)null, "Bartender Removed", "Removed",INFORMATION_MESSAGE);
+
         }
+
     }
 
     //Validation responsible for creating cocktails
     public void addNewCocktail(){
+
         String cName = JOptionPane.showInputDialog("Enter cocktail Name");
         boolean validCname=false;
 
         while(!validCname){
             if(!cName.equals("")){
+
                 validCname=true;
+
             }else
                 cName = JOptionPane.showInputDialog("You need to enter a cocktail Name");
         }
+
         String compo = JOptionPane.showInputDialog("Enter cocktail composition");
         boolean validCompo=false;
+
         while(!validCompo){
             if(!compo.equals("")){
+
                 validCompo=true;
+
             }else
                 compo = JOptionPane.showInputDialog("You need to enter a cocktail composition");
         }
+
             Double price = Double.valueOf(JOptionPane.showInputDialog("Enter cocktail price"));
             boolean validPrice=false;
+
             while(!validPrice){
                 if(!price.equals("")){
+
                     validPrice=true;
+
                 }else
                     price = Double.valueOf(JOptionPane.showInputDialog("You need to enter a cocktail price"));
             }
+
         this.drinks = new Drinks(cName,compo,price);
         JOptionPane.showMessageDialog(null,"Cocktail added","Done", INFORMATION_MESSAGE);
         this.cocktails.add(this.drinks);
+
     }
 
     //Section responsible for deleting the created cocktails
     public void deleteCocktail(){
+
         JComboBox cocktailList = new JComboBox();
         Iterator<Drinks> iterator = cocktails.iterator();
 
         if(!iterator.hasNext()) {
+
             JOptionPane.showMessageDialog((Component)null,"No cocktails to remove", "Remove Staff",INFORMATION_MESSAGE);
+
         }
+
         else {
+
             Drinks cocktailToDelete = (Drinks) iterator.next();
             cocktailList.addItem(cocktailToDelete.getName());
             JOptionPane.showMessageDialog((Component)null,cocktailList, "Cocktail to remove",INFORMATION_MESSAGE);
             int delete = cocktailList.getSelectedIndex();
             this.cocktails.remove(delete);
             JOptionPane.showMessageDialog((Component)null, "Cocktail Removed", "Removed",INFORMATION_MESSAGE);
+
         }
+
     }
 
     //Section responsible for adding sales
