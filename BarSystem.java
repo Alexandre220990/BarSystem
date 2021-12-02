@@ -1,3 +1,5 @@
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -193,7 +195,7 @@ public class BarSystem extends JFrame implements ActionListener{
 
             while (!validPhone){
                 if(!phone.equals("")){
-                    if(phone.length() >= 2 && phone.length() <= 50){
+                    if(phone.length() >= 9 && phone.length() <= 10){
                         for (i = 0; i < phone.length(); i++){
                             if (Character.isLetter(phone.charAt(i))) {
                                 break;
@@ -239,7 +241,7 @@ public class BarSystem extends JFrame implements ActionListener{
         else {
             Bartenders nameToDelete = (Bartenders) i1.next();
             bartendersList.addItem(nameToDelete.getName());
-            JOptionPane.showMessageDialog((Component)null,"Select bartender to remove"+bartendersList, "Remove Bartender",INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog((Component)null,bartendersList, "Bartender to remove",INFORMATION_MESSAGE);
             int delete = bartendersList.getSelectedIndex();
             this.barStaff.remove(delete);
             JOptionPane.showMessageDialog((Component)null, "Bartender Removed", "Removed",INFORMATION_MESSAGE);
@@ -287,7 +289,7 @@ public class BarSystem extends JFrame implements ActionListener{
         else {
             Drinks cocktailToDelete = (Drinks) i1.next();
             cocktailList.addItem(cocktailToDelete.getName());
-            JOptionPane.showMessageDialog((Component)null,"Select cocktail to remove"+cocktailList, "Remove Cocktail",INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog((Component)null,cocktailList, "Cocktail to remove",INFORMATION_MESSAGE);
             int delete = cocktailList.getSelectedIndex();
             this.cocktails.remove(delete);
             JOptionPane.showMessageDialog((Component)null, "Cocktail Removed", "Removed",INFORMATION_MESSAGE);
